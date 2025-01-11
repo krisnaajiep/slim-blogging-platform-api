@@ -1,0 +1,10 @@
+{
+    "name": "krisnaajiep/blogging-platform-api",
+    "description": "A simple blogging platform API",
+    "version": "0.1.0",
+    "require": {
+        "slim/slim": "4.*",
+        "slim/psr7": "^1.7",
+        "middlewares/trailing-slash": "^2.0"
+    }
+}
