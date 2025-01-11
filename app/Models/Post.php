@@ -27,4 +27,18 @@ final class Post extends Model
             die("Error creating table: " . $this->conn->error);
         }
     }
+
+    public function create(array $data)
+    {
+        $stmt = $this->conn->prepare("INSERT INTO $this->table (title, content, category, tags) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $data['title'], $data['content'], $data['category'], $data['tags']);
+
+        if ($stmt->execute() === false) {
+            die("Error creating post: " . $stmt->error);
+        }
+
+        $result = $this->conn->query("SELECT * FROM $this->table WHERE id = " . $stmt->insert_id);
+
+        return $result->fetch_assoc();
+    }
 }
