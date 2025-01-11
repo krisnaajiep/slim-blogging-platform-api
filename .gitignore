@@ -1,3 +1,4 @@
 vendor/
 request.http
 .cz.toml
+.env
