@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Helpers\Validator;
 use App\Models\Post;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Psr7\Request;
@@ -18,7 +19,23 @@ class PostController
 
     public function create(Request $request, Response $response, $args): ResponseInterface
     {
-        $data = $request->getParsedBody();
+        $data = $request->getParsedBody() ?? [];
+
+        $response = $response->withAddedHeader('Content-Type', 'application/json');
+
+        $validation = Validator::setRules($data, [
+            'title' => ['required', 'alpha_num_space', 'min_length:3', 'max_length:255'],
+            'content' => ['required', 'max_length:65535'],
+            'tags' => ['array_string']
+        ]);
+
+        if ($validation->hasValidationErrors()) {
+            $response->getBody()->write(json_encode($validation->getValidationErrors()));
+            return $response->withStatus(400);
+        }
+
+
+        $data['tags'] = json_encode($data['tags']);
 
         $post = $this->model->create($data);
 
