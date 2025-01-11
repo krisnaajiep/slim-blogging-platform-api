@@ -5,6 +5,7 @@ use Middlewares\TrailingSlash;
 use App\Controllers\PostController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Middlewares\JsonBodyParserMiddleware;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -20,6 +21,8 @@ $app->addErrorMiddleware(true, true, true)
 	->forceContentType('application/json');
 
 $app->add(new TrailingSlash(trailingSlash: false));
+
+$app->add(new JsonBodyParserMiddleware());
 
 $app->get('/', function (Request $request, Response $response, $args) {
 	$response->getBody()->write('Hello World');
