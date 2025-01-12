@@ -17,6 +17,20 @@ class PostController
         $this->model = new Post();
     }
 
+    public function index(Request $request, Response $response, $args): ResponseInterface
+    {
+        $response = $response->withAddedHeader('Content-Type', 'application/json');
+
+        $posts = $this->model->getAll();
+
+        foreach ($posts as $key => $post) {
+            $posts[$key] = $this->formatPost($post);
+        }
+
+        $response->getBody()->write(json_encode($posts));
+        return $response;
+    }
+
     public function create(Request $request, Response $response, $args): ResponseInterface
     {
         $data = $request->getParsedBody() ?? [];
