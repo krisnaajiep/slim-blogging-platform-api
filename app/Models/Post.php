@@ -5,10 +5,27 @@ namespace App\Models;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 
+/**
+ * Class Post
+ * 
+ * This class represents the Post model and provides methods to interact with the 'posts' table in the database.
+ * It includes methods to create, read, update, and delete posts, as well as to retrieve all posts or search for posts by a term.
+ */
 final class Post extends Model
 {
-    private $table = 'posts';
+    /**
+     * The name of the table associated with the Post model.
+     *
+     * @var string
+     */
+    private string $table = 'posts';
 
+    /**
+     * Constructor for the Post model.
+     * 
+     * This constructor initializes the database connection and ensures that the 'posts' table exists.
+     * If the table does not exist, it will be created with the appropriate columns.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -28,7 +45,16 @@ final class Post extends Model
         }
     }
 
-    public function create(array $data)
+    /**
+     * Create a new post in the database.
+     *
+     * This method inserts a new post into the 'posts' table with the provided data.
+     * It returns the newly created post.
+     *
+     * @param array $data An associative array containing the post data (title, content, category, tags)
+     * @return array The newly created post as an associative array.
+     */
+    public function create(array $data): array
     {
         $stmt = $this->conn->prepare("INSERT INTO $this->table (title, content, category, tags) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $data['title'], $data['content'], $data['category'], $data['tags']);
@@ -40,14 +66,32 @@ final class Post extends Model
         return $this->getById($stmt->insert_id);
     }
 
-    public function getById(int $id)
+    /**
+     * Retrieve a post by its ID.
+     *
+     * This method fetches a post from the 'posts' table based on the provided ID.
+     * It returns the post as an associative array.
+     *
+     * @param integer $id The ID of the post to retrieve.
+     * @return array|null The post as an associative array or null if not found.
+     */
+    public function getById(int $id): array|null
     {
         $result = $this->conn->query("SELECT * FROM $this->table WHERE id = $id");
 
         return $result->fetch_assoc();
     }
 
-    public function getAll(string $term = null)
+    /**
+     * Retrieve all posts or search for posts by a term.
+     *
+     * This method fetches all posts from the 'posts' table. If a search term is provided,
+     * it filters the posts by the term, searching in the title, content, category, and tags.
+     *
+     * @param string|null $term The search term to filter posts by title, content, category, or tags.
+     * @return array An array of posts. If a search term is provided, it returns the filtered posts.
+     */
+    public function getAll(string $term = null): array
     {
         $sql = "SELECT * FROM $this->table";
 
@@ -60,7 +104,17 @@ final class Post extends Model
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function update(int $id, array $data)
+    /**
+     * Update an existing post in the database.
+     *
+     * This method updates the post with the provided ID using the new data.
+     * It returns the updated post.
+     *
+     * @param integer $id The ID of the post to update.
+     * @param array $data An associative array containing the post data (title, content, category, tags)
+     * @return array|null The updated post as an associative array or null if not found.
+     */
+    public function update(int $id, array $data): array|null
     {
         $stmt = $this->conn->prepare("UPDATE $this->table SET title = ?, content = ?, category = ?, tags = ? WHERE id = ?");
         $stmt->bind_param("ssssi", $data['title'], $data['content'], $data['category'], $data['tags'], $id);
@@ -72,7 +126,16 @@ final class Post extends Model
         return $this->getById($id);
     }
 
-    public function delete(int $id)
+    /**
+     * Delete a post by its ID.
+     *
+     * This method deletes a post from the 'posts' table based on the provided ID.
+     * It returns true if the deletion was successful.
+     *
+     * @param integer $id The ID of the post to delete.
+     * @return true Returns true if the post was successfully deleted.
+     */
+    public function delete(int $id): true
     {
         $stmt = $this->conn->prepare("DELETE FROM $this->table WHERE id = ?");
         $stmt->bind_param("i", $id);
