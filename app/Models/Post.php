@@ -46,4 +46,11 @@ final class Post extends Model
 
         return $result->fetch_assoc();
     }
+
+    public function getAll()
+    {
+        $result = $this->conn->query("SELECT * FROM $this->table");
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
