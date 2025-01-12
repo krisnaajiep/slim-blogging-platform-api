@@ -47,9 +47,15 @@ final class Post extends Model
         return $result->fetch_assoc();
     }
 
-    public function getAll()
+    public function getAll(string $term = null)
     {
-        $result = $this->conn->query("SELECT * FROM $this->table");
+        $sql = "SELECT * FROM $this->table";
+
+        if ($term) {
+            $sql .= " WHERE title LIKE '%$term%' OR content LIKE '%$term%' OR category LIKE '%$term%' OR tags LIKE '%$term%'";
+        }
+
+        $result = $this->conn->query($sql);
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }

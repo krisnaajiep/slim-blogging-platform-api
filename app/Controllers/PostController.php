@@ -21,7 +21,9 @@ class PostController
     {
         $response = $response->withAddedHeader('Content-Type', 'application/json');
 
-        $posts = $this->model->getAll();
+        $term = $request->getQueryParams()['term'] ?? null;
+
+        $posts = $this->model->getAll($term);
 
         foreach ($posts as $key => $post) {
             $posts[$key] = $this->formatPost($post);
