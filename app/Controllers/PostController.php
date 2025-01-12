@@ -67,6 +67,31 @@ class PostController
         return $response;
     }
 
+    public function update(Request $request, Response $response, $args): ResponseInterface
+    {
+        $id = $args['id'];
+        $data = $request->getParsedBody() ?? [];
+
+        $response = $response->withAddedHeader('Content-Type', 'application/json');
+
+        $validation = PostValidator::validate($data);
+        if ($validation->hasValidationErrors()) {
+            $response->getBody()->write(json_encode($validation->getValidationErrors()));
+            return $response->withStatus(400);
+        }
+
+        $data['tags'] = json_encode($data['tags']);
+        $post = $this->model->update($id, $data);
+
+        if (!$post) {
+            $response->getBody()->write(json_encode(['message' => 'Post not found']));
+            return $response->withStatus(404);
+        }
+
+        $response->getBody()->write(json_encode($this->formatPost($post)));
+        return $response;
+    }
+
     private function formatPost($post)
     {
         $post['tags'] = json_decode($post['tags']);
