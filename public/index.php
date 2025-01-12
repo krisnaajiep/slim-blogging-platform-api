@@ -33,5 +33,6 @@ $app->post('/posts', [PostController::class, 'create']);
 $app->get('/posts/{id}', [PostController::class, 'show']);
 $app->get('/posts', [PostController::class, 'index']);
 $app->put('/posts/{id}', [PostController::class, 'update']);
+$app->delete('/posts/{id}', [PostController::class, 'delete']);
 
 $app->run();

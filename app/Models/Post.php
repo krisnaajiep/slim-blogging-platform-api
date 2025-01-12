@@ -65,4 +65,16 @@ final class Post extends Model
 
         return $this->getById($id);
     }
+
+    public function delete(int $id)
+    {
+        $stmt = $this->conn->prepare("DELETE FROM $this->table WHERE id = ?");
+        $stmt->bind_param("i", $id);
+
+        if ($stmt->execute() === false) {
+            die("Error deleting post: " . $stmt->error);
+        }
+
+        return true;
+    }
 }
