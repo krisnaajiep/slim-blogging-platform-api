@@ -92,6 +92,25 @@ class PostController
         return $response;
     }
 
+    public function delete(Request $request, Response $response, $args): ResponseInterface
+    {
+        $id = $args['id'];
+
+        $response = $response->withAddedHeader('Content-Type', 'application/json');
+
+        $post = $this->model->getById($id);
+
+        if (!$post) {
+            $response->getBody()->write(json_encode(['message' => 'Post not found']));
+            return $response->withStatus(404);
+        }
+
+        $this->model->delete($id);
+
+        $response->getBody()->write(json_encode(['message' => 'Post deleted']));
+        return $response->withStatus(204);
+    }
+
     private function formatPost($post)
     {
         $post['tags'] = json_decode($post['tags']);
