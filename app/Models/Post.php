@@ -53,4 +53,16 @@ final class Post extends Model
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function update(int $id, array $data)
+    {
+        $stmt = $this->conn->prepare("UPDATE $this->table SET title = ?, content = ?, category = ?, tags = ? WHERE id = ?");
+        $stmt->bind_param("ssssi", $data['title'], $data['content'], $data['category'], $data['tags'], $id);
+
+        if ($stmt->execute() === false) {
+            die("Error updating post: " . $stmt->error);
+        }
+
+        return $this->getById($id);
+    }
 }
