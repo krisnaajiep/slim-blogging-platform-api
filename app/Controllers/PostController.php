@@ -36,6 +36,23 @@ class PostController
         return $response->withStatus(201);
     }
 
+    public function show(Request $request, Response $response, $args): ResponseInterface
+    {
+        $id = $args['id'];
+
+        $response = $response->withAddedHeader('Content-Type', 'application/json');
+
+        $post = $this->model->getById($id);
+
+        if (!$post) {
+            $response->getBody()->write(json_encode(['message' => 'Post not found']));
+            return $response->withStatus(404);
+        }
+
+        $response->getBody()->write(json_encode($this->formatPost($post)));
+        return $response;
+    }
+
     private function formatPost($post)
     {
         $post['tags'] = json_decode($post['tags']);
