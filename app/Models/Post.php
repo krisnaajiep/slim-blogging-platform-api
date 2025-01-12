@@ -37,7 +37,12 @@ final class Post extends Model
             die("Error creating post: " . $stmt->error);
         }
 
-        $result = $this->conn->query("SELECT * FROM $this->table WHERE id = " . $stmt->insert_id);
+        return $this->getById($stmt->insert_id);
+    }
+
+    public function getById(int $id)
+    {
+        $result = $this->conn->query("SELECT * FROM $this->table WHERE id = $id");
 
         return $result->fetch_assoc();
     }

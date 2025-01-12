@@ -30,5 +30,6 @@ $app->get('/', function (Request $request, Response $response, $args) {
 });
 
 $app->post('/posts', [PostController::class, 'create']);
+$app->get('/posts/{id}', [PostController::class, 'show']);
 
 $app->run();
