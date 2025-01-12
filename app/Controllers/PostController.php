@@ -8,16 +8,42 @@ use Psr\Http\Message\ResponseInterface;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 
+/**
+ * Class PostController
+ * 
+ * This controller handles the CRUD operations for blog posts.
+ * It includes methods to list all posts, create a new post, 
+ * show a single post by ID, update a post by ID, and delete a post by ID.
+ * 
+ * @package App\Controllers
+ */
 class PostController
 {
-    private $model;
+    /**
+     * The Post model instance used for database operations.
+     *
+     * @var Post The Post model instance used for database operations.
+     */
+    private Post $model;
 
+    /**
+     * PostController constructor.
+     * Initializes the Post model instance.
+     */
     public function __construct()
     {
         $this->model = new Post();
     }
 
-    public function index(Request $request, Response $response, $args): ResponseInterface
+    /**
+     * Lists all blog posts, optionally filtered by a search term.
+     *
+     * @param Request $request The HTTP request object containing query parameters and other request data.
+     * @param Response $response The HTTP response object used to send the response back to the client.
+     * @param array $args The route parameters, typically including the post ID for specific post operations.
+     * @return ResponseInterface The HTTP response object containing the list of blog posts in JSON format.
+     */
+    public function index(Request $request, Response $response, array $args): ResponseInterface
     {
         $response = $response->withAddedHeader('Content-Type', 'application/json');
 
@@ -33,7 +59,15 @@ class PostController
         return $response;
     }
 
-    public function create(Request $request, Response $response, $args): ResponseInterface
+    /**
+     * Creates a new blog post.
+     *
+     * @param Request $request The HTTP request object containing query parameters and other request data.
+     * @param Response $response The HTTP response object used to send the response back to the client.
+     * @param array $args The route parameters, typically including the post ID for specific post operations.
+     * @return ResponseInterface The HTTP response object containing the list of blog posts in JSON format.
+     */
+    public function create(Request $request, Response $response, array $args): ResponseInterface
     {
         $data = $request->getParsedBody() ?? [];
 
@@ -52,7 +86,15 @@ class PostController
         return $response->withStatus(201);
     }
 
-    public function show(Request $request, Response $response, $args): ResponseInterface
+    /**
+     * Shows a single blog post by ID.
+     *
+     * @param Request $request The HTTP request object containing query parameters and other request data.
+     * @param Response $response The HTTP response object used to send the response back to the client.
+     * @param array $args The route parameters, typically including the post ID for specific post operations.
+     * @return ResponseInterface The HTTP response object containing the list of blog posts in JSON format.
+     */
+    public function show(Request $request, Response $response, array $args): ResponseInterface
     {
         $id = $args['id'];
 
@@ -69,7 +111,15 @@ class PostController
         return $response;
     }
 
-    public function update(Request $request, Response $response, $args): ResponseInterface
+    /**
+     * Updates an existing blog post by ID.
+     *
+     * @param Request $request The HTTP request object containing query parameters and other request data.
+     * @param Response $response The HTTP response object used to send the response back to the client.
+     * @param array $args The route parameters, typically including the post ID for specific post operations.
+     * @return ResponseInterface The HTTP response object containing the list of blog posts in JSON format.
+     */
+    public function update(Request $request, Response $response, array $args): ResponseInterface
     {
         $id = $args['id'];
         $data = $request->getParsedBody() ?? [];
@@ -94,7 +144,15 @@ class PostController
         return $response;
     }
 
-    public function delete(Request $request, Response $response, $args): ResponseInterface
+    /**
+     * Deletes an existing blog post by ID.
+     *
+     * @param Request $request The HTTP request object containing query parameters and other request data.
+     * @param Response $response The HTTP response object used to send the response back to the client.
+     * @param array $args The route parameters, typically including the post ID for specific post operations.
+     * @return ResponseInterface The HTTP response object containing the list of blog posts in JSON format.
+     */
+    public function delete(Request $request, Response $response, array $args): ResponseInterface
     {
         $id = $args['id'];
 
@@ -113,7 +171,13 @@ class PostController
         return $response->withStatus(204);
     }
 
-    private function formatPost($post)
+    /**
+     * Formats a blog post for JSON response.
+     *
+     * @param array $post The blog post data to format.
+     * @return array The formatted blog post data.
+     */
+    private function formatPost(array $post): array
     {
         $post['tags'] = json_decode($post['tags']);
 

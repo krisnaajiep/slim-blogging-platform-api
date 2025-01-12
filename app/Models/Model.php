@@ -4,15 +4,29 @@ namespace App\Models;
 
 use mysqli;
 
+/**
+ * Base model class
+ */
 class Model
 {
+    /**
+     * Database connection
+     */
     protected $conn;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->connectDB();
     }
 
+    /**
+     * Establish a connection to the database 
+     *
+     * @return void
+     */
     private function connectDB()
     {
         // Create connection
@@ -37,6 +51,9 @@ class Model
         }
     }
 
+    /**
+     * Close the database connection when the object is destroyed
+     */
     public function __destruct()
     {
         $this->conn->close();

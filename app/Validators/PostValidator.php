@@ -4,8 +4,22 @@ namespace App\Validators;
 
 use App\Helpers\Validator;
 
+/**
+ * Class PostValidator
+ *
+ * This class provides validation for post data. It ensures that the title, content, and tags
+ * of a post meet the specified criteria before the post can be processed further.
+ *
+ * @package App\Validators
+ */
 class PostValidator
 {
+    /**
+     * Validates the given data for creating or updating a blog post.
+     *
+     * @param array $data The data to be validated.
+     * @return App\Helpers\Validator The validator instance with the applied rules.
+     */
     public static function validate(array $data)
     {
         return Validator::setRules($data, [
