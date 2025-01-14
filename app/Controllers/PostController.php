@@ -45,8 +45,6 @@ class PostController
      */
     public function index(Request $request, Response $response, array $args): ResponseInterface
     {
-        $response = $response->withAddedHeader('Content-Type', 'application/json');
-
         $term = $request->getQueryParams()['term'] ?? null;
 
         $posts = $this->model->getAll($term);
@@ -70,8 +68,6 @@ class PostController
     public function create(Request $request, Response $response, array $args): ResponseInterface
     {
         $data = $request->getParsedBody() ?? [];
-
-        $response = $response->withAddedHeader('Content-Type', 'application/json');
 
         $validation = PostValidator::validate($data);
         if ($validation->hasValidationErrors()) {
@@ -98,8 +94,6 @@ class PostController
     {
         $id = $args['id'];
 
-        $response = $response->withAddedHeader('Content-Type', 'application/json');
-
         $post = $this->model->getById($id);
 
         if (!$post) {
@@ -123,8 +117,6 @@ class PostController
     {
         $id = $args['id'];
         $data = $request->getParsedBody() ?? [];
-
-        $response = $response->withAddedHeader('Content-Type', 'application/json');
 
         $validation = PostValidator::validate($data);
         if ($validation->hasValidationErrors()) {
@@ -155,8 +147,6 @@ class PostController
     public function delete(Request $request, Response $response, array $args): ResponseInterface
     {
         $id = $args['id'];
-
-        $response = $response->withAddedHeader('Content-Type', 'application/json');
 
         $post = $this->model->getById($id);
 

@@ -1,7 +1,7 @@
 {
     "name": "krisnaajiep/slim-blogging-platform-api",
     "description": "A simple blogging platform API",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "require": {
         "slim/slim": "4.*",
         "slim/psr7": "^1.7",
