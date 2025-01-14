@@ -157,7 +157,6 @@ class PostController
 
         $this->model->delete($id);
 
-        $response->getBody()->write(json_encode(['message' => 'Post deleted']));
         return $response->withStatus(204);
     }
 

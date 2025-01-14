@@ -1,6 +1,5 @@
 vendor/
-request.http
-.cz.toml
+client/
 .env
 .vscode
 mysql.session.sql
