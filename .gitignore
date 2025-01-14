@@ -2,3 +2,5 @@ vendor/
 request.http
 .cz.toml
 .env
+.vscode
+mysql.session.sql

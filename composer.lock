@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c148ea738100467457fbbe023942b93",
+    "content-hash": "b0fd7f0bf2ccaa8a319eedc6676eaf82",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -123,6 +123,47 @@
                 }
             ],
             "time": "2024-07-20T21:45:45+00:00"
+        },
+        {
+            "name": "krisnaajiep/php-validator",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/krisnaajiep/php-validator.git",
+                "reference": "72321c7c8ada95645f2e3987d61cd36823833458"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/krisnaajiep/php-validator/zipball/72321c7c8ada95645f2e3987d61cd36823833458",
+                "reference": "72321c7c8ada95645f2e3987d61cd36823833458",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "KrisnaAjieP\\PHPValidator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Krisna Ajie",
+                    "email": "krisnaajiep@gmail.com"
+                }
+            ],
+            "description": "A personal form request validator utility for PHP",
+            "support": {
+                "issues": "https://github.com/krisnaajiep/php-validator/issues",
+                "source": "https://github.com/krisnaajiep/php-validator/tree/main"
+            },
+            "time": "2025-01-13T12:18:33+00:00"
         },
         {
             "name": "middlewares/trailing-slash",
@@ -1255,10 +1296,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "krisnaajiep/php-validator": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
+    "platform": {},
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

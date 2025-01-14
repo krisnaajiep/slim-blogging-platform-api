@@ -2,7 +2,7 @@
 
 namespace App\Validators;
 
-use App\Helpers\Validator;
+use KrisnaAjieP\PHPValidator\Validator;
 
 /**
  * Class PostValidator
