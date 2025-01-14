@@ -2,22 +2,38 @@
 
 use Slim\Factory\AppFactory;
 use Middlewares\TrailingSlash;
+use App\Handlers\ShutdownHandler;
+use App\Handlers\HttpErrorHandler;
 use App\Controllers\PostController;
-use App\Middlewares\JsonBodyParserMiddleware;
 use App\Middlewares\ReturningJsonMiddleware;
+use App\Middlewares\JsonBodyParserMiddleware;
+use Slim\Factory\ServerRequestCreatorFactory;
 
 require __DIR__ . '/../vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();
 
+$displayErrorDetails = true;
+
 $app = AppFactory::create();
 
+$callableResolver = $app->getCallableResolver();
+$responseFactory = $app->getResponseFactory();
+
+$serverRequestCreator = ServerRequestCreatorFactory::create();
+$request = $serverRequestCreator->createServerRequestFromGlobals();
+
+$errorHandler = new HttpErrorHandler($callableResolver, $responseFactory);
+$shutdownHandler = new ShutdownHandler($request, $errorHandler, $displayErrorDetails);
+register_shutdown_function($shutdownHandler);
+
+// Add Routing Middleware
 $app->addRoutingMiddleware();
 
-$app->addErrorMiddleware(true, true, true)
-	->getDefaultErrorHandler()
-	->forceContentType('application/json');
+// Add Error Handling Middleware
+$errorMiddleware = $app->addErrorMiddleware($displayErrorDetails, false, false);
+$errorMiddleware->setDefaultErrorHandler($errorHandler);
 
 // Middlewares
 $app->add(new TrailingSlash(trailingSlash: false));
