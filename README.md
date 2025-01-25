@@ -53,7 +53,7 @@ How to install:
 2. Change the current working directory
 
    ```bash
-   cd slim-blogging-platform-api/public
+   cd slim-blogging-platform-api
    ```
 
 3. Install dependecies
@@ -81,6 +81,7 @@ How to install:
 6. Run the PHP built-in Web Server
 
    ```bash
+   cd public
    php -S localhost:8888
    ```
 
