@@ -1,16 +1,14 @@
 <?php
 
+use Dotenv\Dotenv;
 use Slim\Factory\AppFactory;
-use Middlewares\TrailingSlash;
 use App\Handlers\ShutdownHandler;
 use App\Handlers\HttpErrorHandler;
-use App\Controllers\PostController;
-use App\Middlewares\ReturningJsonMiddleware;
 use Slim\Factory\ServerRequestCreatorFactory;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+$dotenv = Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();
 
 $displayErrorDetails = true;
@@ -37,15 +35,12 @@ $app->addRoutingMiddleware();
 $errorMiddleware = $app->addErrorMiddleware($displayErrorDetails, false, false);
 $errorMiddleware->setDefaultErrorHandler($errorHandler);
 
-// Middlewares
-$app->add(new TrailingSlash(trailingSlash: false));
-$app->add(new ReturningJsonMiddleware());
+// Middleware
+$middleware = require __DIR__ . '/../app/middleware.php';
+$middleware($app);
 
 // Routes
-$app->post('/posts', [PostController::class, 'create']);
-$app->get('/posts/{id}', [PostController::class, 'show']);
-$app->get('/posts', [PostController::class, 'index']);
-$app->put('/posts/{id}', [PostController::class, 'update']);
-$app->delete('/posts/{id}', [PostController::class, 'delete']);
+$routes = require __DIR__ . '/../app/routes.php';
+$routes($app);
 
 $app->run();
