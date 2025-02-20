@@ -69,6 +69,10 @@ class PostController
     {
         $data = $request->getParsedBody() ?? [];
 
+        if ($request->getHeader('Content-Type')[0] === 'application/x-www-form-urlencoded' && !empty($data['tags'])) {
+            $data['tags'] = json_decode($data['tags']);
+        }
+
         $validation = PostValidator::validate($data);
         if ($validation->hasValidationErrors()) {
             $response->getBody()->write(json_encode($validation->getValidationErrors()));
@@ -117,6 +121,10 @@ class PostController
     {
         $id = $args['id'];
         $data = $request->getParsedBody() ?? [];
+
+        if ($request->getHeader('Content-Type')[0] === 'application/x-www-form-urlencoded' && !empty($data['tags'])) {
+            $data['tags'] = json_decode($data['tags']);
+        }
 
         $validation = PostValidator::validate($data);
         if ($validation->hasValidationErrors()) {
