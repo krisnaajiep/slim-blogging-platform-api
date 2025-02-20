@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b0fd7f0bf2ccaa8a319eedc6676eaf82",
+    "content-hash": "0168a4b0559a06517930c4517bc9018b",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -130,12 +130,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/krisnaajiep/php-validator.git",
-                "reference": "72321c7c8ada95645f2e3987d61cd36823833458"
+                "reference": "859c16b443d2cee24dc083abafda642c431b752d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/krisnaajiep/php-validator/zipball/72321c7c8ada95645f2e3987d61cd36823833458",
-                "reference": "72321c7c8ada95645f2e3987d61cd36823833458",
+                "url": "https://api.github.com/repos/krisnaajiep/php-validator/zipball/859c16b443d2cee24dc083abafda642c431b752d",
+                "reference": "859c16b443d2cee24dc083abafda642c431b752d",
                 "shasum": ""
             },
             "require": {
@@ -163,7 +163,7 @@
                 "issues": "https://github.com/krisnaajiep/php-validator/issues",
                 "source": "https://github.com/krisnaajiep/php-validator/tree/main"
             },
-            "time": "2025-01-13T12:18:33+00:00"
+            "time": "2025-02-20T03:29:03+00:00"
         },
         {
             "name": "middlewares/trailing-slash",
@@ -221,16 +221,16 @@
         },
         {
             "name": "middlewares/utils",
-            "version": "v4.0.1",
+            "version": "v4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/middlewares/utils.git",
-                "reference": "4c4d81f661e126022485cf7a2f6d91b5cf0365c5"
+                "reference": "749a3055972ebf4197f663eedcb38cae3c81f1c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/middlewares/utils/zipball/4c4d81f661e126022485cf7a2f6d91b5cf0365c5",
-                "reference": "4c4d81f661e126022485cf7a2f6d91b5cf0365c5",
+                "url": "https://api.github.com/repos/middlewares/utils/zipball/749a3055972ebf4197f663eedcb38cae3c81f1c8",
+                "reference": "749a3055972ebf4197f663eedcb38cae3c81f1c8",
                 "shasum": ""
             },
             "require": {
@@ -274,9 +274,9 @@
             ],
             "support": {
                 "issues": "https://github.com/middlewares/utils/issues",
-                "source": "https://github.com/middlewares/utils/tree/v4.0.1"
+                "source": "https://github.com/middlewares/utils/tree/v4.0.2"
             },
-            "time": "2024-11-21T20:21:49+00:00"
+            "time": "2025-01-23T13:33:55+00:00"
         },
         {
             "name": "nikic/fast-route",
