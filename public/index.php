@@ -6,7 +6,6 @@ use App\Handlers\ShutdownHandler;
 use App\Handlers\HttpErrorHandler;
 use App\Controllers\PostController;
 use App\Middlewares\ReturningJsonMiddleware;
-use App\Middlewares\JsonBodyParserMiddleware;
 use Slim\Factory\ServerRequestCreatorFactory;
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -28,6 +27,9 @@ $errorHandler = new HttpErrorHandler($callableResolver, $responseFactory);
 $shutdownHandler = new ShutdownHandler($request, $errorHandler, $displayErrorDetails);
 register_shutdown_function($shutdownHandler);
 
+// Parse json, form data and xml
+$app->addBodyParsingMiddleware();
+
 // Add Routing Middleware
 $app->addRoutingMiddleware();
 
@@ -37,7 +39,6 @@ $errorMiddleware->setDefaultErrorHandler($errorHandler);
 
 // Middlewares
 $app->add(new TrailingSlash(trailingSlash: false));
-$app->add(new JsonBodyParserMiddleware());
 $app->add(new ReturningJsonMiddleware());
 
 // Routes
