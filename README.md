@@ -74,11 +74,24 @@ How to install:
    DB_PORT=3306
    DB_USER=root
    DB_PASS=
-   DB_NAME=blog
+   DB_NAME=blogging_platform_api
    ```
 
 5. [Start MySQL server](https://phoenixnap.com/kb/start-mysql-server)
-6. Run the PHP built-in Web Server
+
+6. Create new database
+
+   ```bash
+   mysql -u root -p -e "CREATE DATABASE blogging_platform_api;"
+   ```
+
+7. Import `blogging_platform_api.sql` file
+
+   ```bash
+   mysql -u root -p blogging_platform_api < blogging_platform_api.sql
+   ```
+
+8. Run the PHP built-in Web Server
 
    ```bash
    cd public
